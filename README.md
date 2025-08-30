@@ -53,5 +53,3 @@ It supports classic controls, next-piece preview, level speed-up, line-clear sco
 
 ---
 
-## 🗂️ Project structure
-
