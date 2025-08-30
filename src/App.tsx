@@ -1,35 +1,39 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import './styles.css';
+import BoardCanvas from './components/BoardCanvas';
+import NextCanvas from './components/NextCanvas';
+import { useTetris } from './hooks/useTetris';
 
-function App() {
-  const [count, setCount] = useState(0)
+export default function App(){
+  const {arena, player, nextType, score, lines, level, paused, setPaused, reset, } = useTetris();
 
-  return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
+  return(
+    <div className="app">
+      <BoardCanvas arena={arena} player={player} />
+
+      <aside className="panel">
+        <h2 style={{marginTop:0}}>Тетрис</h2>
+
+        <div className="stats">
+            <label>Points:</label><div>{score}</div>
+            <label>Level:</label><div>{level}</div>
+            <label>Rows:</label><div>{lines}</div>
+            <label>Status:</label><div>{paused? 'Paused (P)': 'Active'}</div>
+        </div>
+
+        <div className="btns">
+            <button className="primary" onClick={reset}>Нова игра</button>
+            <button onClick={()=> setPaused(p=>!p)}>{paused? 'Continue' : 'Pause'}</button>
+        </div>
+
+        <div className="mini">
+          <h3>Next Block</h3>
+          <NextCanvas type={nextType} />
+        </div>
+
+        <p style={{color:'var(--muted)', fontSize:12}}>
+            Keys: ←/→ movement • ↓ drop • Z/X/↑ turn • Space hard drop • P pause • R restart
         </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+      </aside>
+    </div>
+  );
 }
-
-export default App
