@@ -44,6 +44,8 @@ export function useTetris(){
         setArena(createMatrix(COLS, ROWS));
         setScore(0); setLines(0); setLevel(1); setPaused(false);
         bagRef.current = new Bag();
+        dropCounter.current = 0;
+        lastTime.current = 0;
 
         //initial figure
         const b = bagRef.current;
@@ -66,14 +68,17 @@ export function useTetris(){
         setPlayer((prev) => {
             if(!prev) return prev;
             const candidate: Player = { ...prev, pos: {x: prev.pos.x, y: prev.pos.y + 1}};
-            if(!collide(arena,candidate)) return candidate;
+            if(!collide(arena,candidate)) {
+                setScore(s => s + 1);
+                return candidate;
+            }                
 
             //lock
             const a = arena.map(r => r.slice());
             merge(a, prev);
             const { rowsCleared, points } = sweep(a, level);
             setArena(a);
-            setScore(s => s + points + 1); // +1 bonus point for soft drop
+            setScore(s => s + points);
             if(rowsCleared){
                 setLines(l => {
                     const newLines = l + rowsCleared;
@@ -165,8 +170,8 @@ export function useTetris(){
             else if(['ArrowUp', 'KeyW', 'KeyX'].includes(e.code)) { e.preventDefault(); rotateCW(1); }
             else if(['KeyZ'].includes(e.code)) {e.preventDefault(); rotateCW(-1); }
         };
-        window.addEventListener('keydown', onKey, {passive: false });
-        return () => window.removeEventListener('keydown', onKey as any);
+        document.addEventListener('keydown', onKey);
+        return () => document.removeEventListener('keydown', onKey);
     }, [move, softDrop, hardDrop, rotateCW, paused, reset]);
 
     // game over detection on spawn()
