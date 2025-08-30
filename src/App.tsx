@@ -11,7 +11,7 @@ export default function App(){
       <BoardCanvas arena={arena} player={player} />
 
       <aside className="panel">
-        <h2 style={{marginTop:0}}>Тетрис</h2>
+        <h2 style={{marginTop:0}}>Tetris</h2>
 
         <div className="stats">
             <label>Points:</label><div>{score}</div>
@@ -21,7 +21,7 @@ export default function App(){
         </div>
 
         <div className="btns">
-            <button className="primary" onClick={reset}>Нова игра</button>
+            <button className="primary" onClick={reset}>New Game</button>
             <button onClick={()=> setPaused(p=>!p)}>{paused? 'Continue' : 'Pause'}</button>
         </div>
 
@@ -31,7 +31,13 @@ export default function App(){
         </div>
 
         <p style={{color:'var(--muted)', fontSize:12}}>
-            Keys: ←/→ movement • ↓ drop • Z/X/↑ turn • Space hard drop • P pause • R restart
+            Keys: 
+              • ←/→ movement 
+              • ↓ drop 
+              • Z/X/↑ turn 
+              • Space hard drop 
+              • P pause 
+              • R restart
         </p>
       </aside>
     </div>

@@ -1,4 +1,4 @@
-import type { Matrix, PieceType } from "./types";
+import type { Matrix, PieceType } from './types';
 
 export const COLS = 10;
 export const ROWS = 20;

@@ -24,7 +24,7 @@ function drawCell(ctx: CanvasRenderingContext2D, x: number, y: number, val: numb
 function drawMatrix(ctx: CanvasRenderingContext2D, m: Matrix, ox: number, oy: number){
     for(let y = 0; y < m.length; y++){
         for(let x =0; x < m[y].length; x++){
-            const v = m[x][y];
+            const v = m[y][x];
             if(v) drawCell(ctx, x+ox, y+oy, v)
         }
     }

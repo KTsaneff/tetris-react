@@ -37,7 +37,7 @@ export default function NextCanvas({ type }: { type: PieceType}){
         const offY = Math.floor((4 - m.length)/2);
         for(let y=0; y<m.length; y++){
             for(let x =0; x<m[y].length; x++){
-                drawCell(x+offX, y+offY, m[x][y]);
+                drawCell(x+offX, y+offY, m[y][x]);
             }
         }
     }, [type]);

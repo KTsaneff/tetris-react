@@ -6,7 +6,7 @@ export class Bag {
 
     private refill() {
         const types = Object.keys(PIECES) as PieceType[];
-        for (let i = types.length -1; i > 0; i--) {
+        for (let i = types.length - 1; i > 0; i--) {
             const j = Math.floor(Math.random() * (i + 1));
             [types[i], types[j]] = [types[j], types[i]];
         }

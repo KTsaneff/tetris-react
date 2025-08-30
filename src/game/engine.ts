@@ -2,12 +2,20 @@ import { SCORE_BY_ROWS } from "./constants";
 import type { Matrix, Player } from "./types";
 
 export function collide(arena: Matrix, player: Player): boolean {
-    const { matrix: m, pos: o } = player;
-    for (let y = 0; y < m.length; y++) {
-        for (let x = 0; x < m[y].length; x++) {
-            if(m[y][x] !== 0 && (arena[y + o.y] && arena[y + o.y][x + o.x] !== 0)){
-                return true;
-            }
+    const { matrix, pos} = player;
+    for (let y = 0; y < matrix.length; y++) {
+        for (let x = 0; x < matrix[y].length; x++) {
+            if (!matrix[y][x]) continue;
+
+                const ay = y + pos.y;
+                const ax = x + pos.x;
+
+                // walls/floor/ceiling
+                if (ax < 0 || ax >= arena[0].length || ay < 0 || ay >= arena.length) {
+                    return true;
+                }
+                // stacked blocks
+                if (arena[ay][ax] !== 0) return true;
         }        
     }
     return false;
